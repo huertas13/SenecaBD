@@ -16,7 +16,7 @@ create table centro (
     direccion varchar(200),
     tlf varchar(20),
     id_profe int,
-    constraint fk_profe foreign key (id_profe) references profesor(id_profe)
+    constraint fk_profe foreign key (id_profe) references profesor(id_profe) on delete cascade on update cascade
 );
 
 create table asignatura (
@@ -24,7 +24,7 @@ create table asignatura (
     nombre varchar(100)not null,
     curso varchar(50),
     id_profe int,
-    constraint fk_asignatura_profesor foreign key (id_profe) references profesor(id_profe)
+    constraint fk_asignatura_profesor foreign key (id_profe) references profesor(id_profe) on delete cascade on update cascade
 );
 
 create table ra (
@@ -32,7 +32,7 @@ create table ra (
     criterio varchar(100),
     descripcion text,
     id_asig int,
-    constraint fk_ra_asignatura foreign key (id_asig) references asignatura(id_asig)
+    constraint fk_ra_asignatura foreign key (id_asig) references asignatura(id_asig) on delete cascade on update cascade
 );
 
 create table criterio_evaluacion (
@@ -41,7 +41,7 @@ create table criterio_evaluacion (
     descripcion text,
     ponderacion decimal(5,2),
     id_ra int,
-    constraint fk_criterio_ra foreign key (id_ra) references ra(id_ra)
+    constraint fk_criterio_ra foreign key (id_ra) references ra(id_ra) on delete cascade on update cascade
 );
 
 create table falta_asistencia (
@@ -57,7 +57,7 @@ create table alumno (
     dni varchar(20) unique,
     fecha_nac date,
     id_falta int,
-    constraint fk_falta foreign key (id_falta) references falta_asistencia(id_falta)
+    constraint fk_falta foreign key (id_falta) references falta_asistencia(id_falta) on delete cascade on update cascade
 );
 
 create table matricula (
@@ -65,8 +65,8 @@ create table matricula (
     id_alumno int,
     id_asig int,
     fecha_matricula date,
-    constraint fk_matricula_alumno foreign key (id_alumno) references alumno(id_alumno),
-    constraint fk_matricula_asignatura foreign key (id_asig) references asignatura(id_asig)
+    constraint fk_matricula_alumno foreign key (id_alumno) references alumno(id_alumno) on delete cascade on update cascade,
+    constraint fk_matricula_asignatura foreign key (id_asig) references asignatura(id_asig) on delete cascade on update cascade
 );
 
 create table tarea (
@@ -84,8 +84,8 @@ create table nota (
     id_alumno int,
     id_tarea int,
     id_ce int,
-    constraint fk_nota_alumno foreign key (id_alumno) references alumno(id_alumno),
-    constraint fk_ce foreign key (id_ce) references criterio_evaluacion(id_ce),
-    constraint fk_nota_tarea foreign key (id_tarea) references tarea(id_tarea)
+    constraint fk_nota_alumno foreign key (id_alumno) references alumno(id_alumno) on delete cascade on update cascade,
+    constraint fk_ce foreign key (id_ce) references criterio_evaluacion(id_ce) on delete cascade on update cascade,
+    constraint fk_nota_tarea foreign key (id_tarea) references tarea(id_tarea) on delete cascade on update cascade
 );
 
